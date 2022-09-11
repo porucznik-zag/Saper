@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAPER</title>
+
+    <link rel="stylesheet" href="css/root.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/fontello.css">
+    <script src="js/functions.js" defer></script>
+    <script src="js/js-classes/Box.js" defer></script>
+    <script src="js/js-classes/SaperGame.js" defer></script>
+    <script src="js/main.js" defer></script>
+</head>
+
+<body>
+    <div class="main-container">
+        <div class="form-container">
+
+            <div class="form-box form-settings-box">
+                <i class="icon-settings" onclick="openSettingsMenu()"></i>
+            </div>
+
+            <div class="settings-menu" id="settings-menu">
+                <div class="settings-box" id="custum-percent-settings-box">
+                    <div class="custom-percent-half-box">
+                        <input type="range" id="custom-percent-input" name="board-percent" value="40" min="10" max="100" step="1" onmousemove="changeBoardWidth(this.value)" onchange="changeBoardWidth(this.value)">
+                    </div>
+                    <div class="custom-percent-half-box">
+                        <div id="custom-percent-title">Szerokość planszy</div>
+                        <div id="custom-percent-value-div">40</div>
+                    </div>
+                </div>
+                <div class="settings-box" id="change-theme-settings-box">
+                    <div class="icon-switch-box" onclick="changeWebTheme()">
+                        <i class="icon-change-theme"></i>
+                    </div>
+                </div>
+                <div class="settings-box" id="volume-settings-box">
+                    <div class="icon-switch-box" id="icon-switch-box" onclick="switchVolume()">
+                        <i class="icon-volume-up"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-box board-input-box">
+                <input type="number" id="custom-width-input" class="board-input" name="board-width" placeholder=" ">
+                <div class="placeholder">Szerokość</div>
+            </div>
+
+            <div class="form-box board-input-box">
+                <input type="number" id="custom-height-input" class="board-input" name="board-height" placeholder=" ">
+                <div class="placeholder">Wysokość</div>
+            </div>
+
+            <div class="form-box board-input-box">
+                <input type="number" id="custom-mines-input" class="board-input" name="board-mines" placeholder=" ">
+                <div class="placeholder">Miny</div>
+            </div>
+
+            <div class="form-box">
+                <button id="update-button" onclick="customBoardSize()">START</button>
+            </div>
+        </div>
+
+        <div class="board-container" id="board-container">
+        </div>
+    </div>
+
+
+
+    <script>
+        const boardContainer = document.getElementById("board-container");
+        boardContainer.addEventListener("contextmenu", (event) => {
+            event.preventDefault();
+        });
+    </script>
+    <!-- <script src="js/functions.js"></script>
+    <script src="js/js-classes/Box.js"></script>
+    <script src="js/js-classes/SaperGame.js"></script>
+    <script src="js/main.js"></script> -->
+</body>
+
+</html>

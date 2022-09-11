@@ -1,0 +1,24 @@
+/* :root {
+    --website-bg-color: whitesmoke;
+    --main-color: rgb(82, 141, 193);
+    --contrast-color: white;
+    
+    --flag-color: rgb(60, 71, 91);
+    --box-first-layer-color: rgb(82, 141, 193);
+    --box-first-layer-color-hover: rgb(105, 163, 214);
+    --box-second-layer-color: rgb(103, 116, 126);
+    --box-bomb-color: rgb(197, 88, 88);
+} */
+
+:root {
+    --website-bg-color: rgb(52, 65, 78);
+    --main-color: rgb(82, 141, 193);
+    --main-bg-color: rgb(52, 62, 68);
+    --contrast-color: white;
+    
+    --flag-color: rgb(169, 208, 234);
+    --box-first-layer-color: rgb(43, 91, 133);
+    --box-first-layer-color-hover: rgb(52, 115, 169);
+    --box-second-layer-color: rgb(95, 124, 146);
+    --box-bomb-color: rgb(197, 88, 88);
+}
