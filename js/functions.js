@@ -4,9 +4,14 @@ function customBoardSize(){
     GAME.createBoardArray();
     GAME.generateBoard();
 
-    if(GAME.isVolumeOn == true){
-        const audio = new Audio("../music/button-click.mp3");
-        audio.play();       
+    if(firstRun == false){
+        if(GAME.isVolumeOn == true){
+            const audio = new Audio("../music/button-click.mp3");
+            audio.play();       
+        }
+    }
+    else{
+        firstRun = false;
     }
 }
 
@@ -93,21 +98,21 @@ function switchVolume(){
     }
 }
 
-// function loadSoundBefore(){
-//     let audio = new Audio("music/box-lock-2.mp3");
-//     audio.volume = 0;
-//     audio.muted = true;
-//     audio.play();
+function loadSoundBefore(){
+    let audio = new Audio("music/box-lock-2.mp3");
+    audio.volume = 0;
+    audio.muted = true;
+    // audio.play();
 
-//     audio = new Audio("music/box-click.mp3");
-//     audio.play();  
+    audio = new Audio("music/box-click.mp3");
+    // audio.play();  
     
-//     audio = new Audio("music/set-flag.mp3");
-//     audio.play(); 
+    audio = new Audio("music/set-flag.mp3");
+    // audio.play(); 
 
-//     audio = new Audio("../music/button-click.mp3");
-//     audio.play();
-// }
+    audio = new Audio("../music/button-click.mp3");
+    // audio.play();
+}
 
 
 
