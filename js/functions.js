@@ -110,7 +110,7 @@ function loadSoundBefore(){
     audio = new Audio("music/set-flag.mp3");
     audio.load(); 
 
-    audio = new Audio("../music/button-click.mp3");
+    audio = new Audio("music/button-click.mp3");
     audio.load();
 }
 
