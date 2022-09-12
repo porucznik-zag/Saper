@@ -1,3 +1,24 @@
+@font-face {
+    font-family: 'NowMedium';
+    src: URL('../fonts/Now-Medium.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'AllSeason';
+    src: URL('../fonts/All-Season.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Euqlid';
+    src: URL('../fonts/Euclid-Circular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'ComicBook';
+    src: URL('../fonts/Comic_Book.ttf') format('truetype');
+}
+  
+
 * {
     margin: 0;
     padding: 0;
@@ -8,7 +29,8 @@
 body {
     /* background-color: rgb(33, 45, 52); */
     background-color: var(--website-bg-color);
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Euqlid';
+    letter-spacing: 0.05em;
 }
 
 .main-container {
@@ -43,11 +65,15 @@ body {
     text-align: center;
 }
 
+#game-timer {
+    margin-bottom: 5px;
+    font-size: 1.4em;
+    color: var(--contrast-color);
+}
 
 .form-settings-box {
     width: 10%;
     min-width: 160px;
-    /* background-color: red; */
 }
 
 .form-box .icon-settings {
@@ -79,10 +105,9 @@ body {
     opacity: 0;
     transition: 0.3s ease-out;
     pointer-events: none;
-
 }
 
-.settings-menu-open{
+.settings-menu-open {
     opacity: 1;
     height: calc(100vh - 400px);
     /* min-height: 300px; */
@@ -90,7 +115,7 @@ body {
 }
 
 .settings-box {
-    height: 33.33%;
+    height: 100%;
     width: 100%;
     display: flex;
     align-items: center;
@@ -128,7 +153,7 @@ body {
     background: var(--contrast-color);
 }
 
-#custom-percent-input:hover{
+#custom-percent-input:hover {
     cursor: pointer;
 }
 
@@ -146,13 +171,13 @@ body {
     background: var(--main-color);
 }
 
-.settings-box i{
+.settings-box i {
     font-size: 2rem;
     transition: 0.5s ease-out;
     pointer-events: none;
 }
 
-.icon-switch-box:hover i{
+.icon-box:hover i {
     color: var(--main-color);
 }
 
@@ -209,21 +234,22 @@ input::-webkit-inner-spin-button {
     width: 50%;
     height: 35px;
     color: var(--contrast-color);
-    border: 2px solid var(--contrast-color);
+    background-color: var(--box-second-layer-color);
+    border: 2px solid var(--box-second-layer-color);
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 4px;
     font-weight: bold;
     font-size: 14px;
-    color: rgb(82, 141, 193);
+    /* color: rgb(82, 141, 193); */
     transition: 0.6s ease-out;
 }
 
 #update-button:hover {
     cursor: pointer;
     background-color: transparent;
-    color: var(--contrast-color);
+    border: 2px solid var(--contrast-color);
     transform: scale(1.05);
 }
 
@@ -261,7 +287,6 @@ input::-webkit-inner-spin-button {
     justify-content: center;
     background-color: var(--box-first-layer-color);
     transition: background-color 0.5s ease-out;
-    /* display: none; */
 }
 
 .box-first-layer:hover {
@@ -287,6 +312,7 @@ input::-webkit-inner-spin-button {
     justify-content: center;
     background-color: var(--box-second-layer-color);
     color: white;
+    font-size: 2rem;
 }
 
 .bomb {

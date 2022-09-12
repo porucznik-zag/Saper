@@ -35,13 +35,18 @@
                     </div>
                 </div>
                 <div class="settings-box" id="change-theme-settings-box">
-                    <div class="icon-switch-box" onclick="changeWebTheme()">
+                    <div class="icon-box" onclick="changeWebTheme()">
                         <i class="icon-change-theme"></i>
                     </div>
                 </div>
                 <div class="settings-box" id="volume-settings-box">
-                    <div class="icon-switch-box" id="icon-switch-box" onclick="switchVolume()">
+                    <div class="icon-box" id="icon-switch-box" onclick="switchVolume()">
                         <i class="icon-volume-up"></i>
+                    </div>
+                </div>
+                <div class="settings-box" id="info-settings-box">
+                    <div class="icon-box" id="icon-info-box" onclick="ruleInfo()">
+                        <i class="icon-info"></i>
                     </div>
                 </div>
             </div>
@@ -61,7 +66,8 @@
                 <div class="placeholder">Miny</div>
             </div>
 
-            <div class="form-box">
+            <div class="form-box" id="start-from-box">
+                <div id="game-timer">00:00</div>
                 <button id="update-button" onclick="customBoardSize()">START</button>
             </div>
         </div>
