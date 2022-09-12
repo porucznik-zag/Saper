@@ -6,7 +6,7 @@ function customBoardSize(){
 
     if(firstRun == false){
         if(GAME.isVolumeOn == true){
-            const audio = new Audio("../music/bomb-1.mp3");
+            const audio = new Audio("music/button-click.mp3");
             audio.play();       
         }
     }
@@ -59,7 +59,7 @@ function changeBoardWidth(percentValue){
 function openSettingsMenu(){
 
     if(GAME.isVolumeOn == true){
-        const audio = new Audio("../music/button-click.mp3");
+        const audio = new Audio("music/button-click.mp3");
         audio.play();       
     }
 
@@ -71,7 +71,7 @@ function openSettingsMenu(){
 
 function switchVolume(){
 
-    const audio = new Audio("../music/button-click.mp3");
+    const audio = new Audio("music/button-click.mp3");
     audio.play();       
 
     const volumeSwitchDiv = document.getElementById("icon-switch-box");
@@ -139,7 +139,7 @@ function changeColoToDark(){
 function changeWebTheme(){
 
     if(GAME.isVolumeOn == true){
-        const audio = new Audio("../music/button-click.mp3");
+        const audio = new Audio("music/button-click.mp3");
         audio.play();       
     }
 
