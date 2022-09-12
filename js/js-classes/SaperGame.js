@@ -211,44 +211,39 @@ class SaperGame {
             this.boardArray[x][y].isVisible = true;
 
 
-            // const testalert = setTimeout(() => {
-            //     if(this.boardArray[x][y].isBomb == true){
-            //         alert("bobma");
+            // if (this.boardArray[x][y].isBomb == true) {
+            //     const tempBomobArray = [];
+            //     for (let i = 0; i < this.boardHeight; i++) {
+            //         for (let j = 0; j < this.boardWidth; j++) {
+            //             if (this.boardArray[i][j].isBomb == true)
+            //                 tempBomobArray.push(this.boardArray[i][j]);
+            //         }
             //     }
-            // }, 100);
-            if (this.boardArray[x][y].isBomb == true) {
-                const tempBomobArray = [];
-                for (let i = 0; i < this.boardHeight; i++) {
-                    for (let j = 0; j < this.boardWidth; j++) {
-                        if (this.boardArray[i][j].isBomb == true)
-                            tempBomobArray.push(this.boardArray[i][j]);
-                    }
-                }
-                console.log(tempBomobArray);
+            //     console.log(tempBomobArray);
 
-                for (let i = 0; i < tempBomobArray.length; i++) {
-                    let randomNumber = 0;
-                    while (true) {
-                        randomNumber = Math.floor(Math.random() * tempBomobArray.length);
-                        if(tempBomobArray[randomNumber].isVisible == false)
-                            break;
-                    }
+            //     for (let i = 0; i < tempBomobArray.length; i++) {
+            //         let randomNumber = 0;
+            //         while (true) {
+            //             randomNumber = Math.floor(Math.random() * tempBomobArray.length);
+            //             if(tempBomobArray[randomNumber].isVisible == false)
+            //                 break;
+            //         }
 
-                    const bombX = tempBomobArray[randomNumber].x;
-                    const bombY = tempBomobArray[randomNumber].y;
+            //         const bombX = tempBomobArray[randomNumber].x;
+            //         const bombY = tempBomobArray[randomNumber].y;
 
-                    console.log(`randomNumber = ${randomNumber}`);
-                    const showBomb = setTimeout(() => {
-                        tempBomobArray[randomNumber].isVisible = true;
-                        this.boardArray[bombX][bombY].isVisible = true;
+            //         console.log(`randomNumber = ${randomNumber}`);
+            //         const showBomb = setTimeout(() => {
+            //             tempBomobArray[randomNumber].isVisible = true;
+            //             this.boardArray[bombX][bombY].isVisible = true;
 
-                        const bombId = "box-" + tempBomobArray[randomNumber].id;
+            //             const bombId = "box-" + tempBomobArray[randomNumber].id;
 
-                        const tempDiv = document.getElementById(bombId);
+            //             const tempDiv = document.getElementById(bombId);
                         
-                    }, 1000);
-                }
-            }
+            //         }, 1000);
+            //     }
+            // }
 
 
             if (this.boardArray[x][y].bombAround == 0 && this.boardArray[x][y].isBomb != true) {

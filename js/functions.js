@@ -6,7 +6,7 @@ function customBoardSize(){
 
     if(firstRun == false){
         if(GAME.isVolumeOn == true){
-            const audio = new Audio("../music/button-click.mp3");
+            const audio = new Audio("../music/bomb-1.mp3");
             audio.play();       
         }
     }
@@ -103,7 +103,6 @@ function loadSoundBefore(){
     audio.volume = 0;
     audio.muted = true;
     audio.load();
-    audio.
 
     audio = new Audio("music/box-click.mp3");
     audio.load();  
