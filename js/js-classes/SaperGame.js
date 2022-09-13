@@ -211,39 +211,68 @@ class SaperGame {
             this.boardArray[x][y].isVisible = true;
 
 
-            // if (this.boardArray[x][y].isBomb == true) {
-            //     const tempBomobArray = [];
-            //     for (let i = 0; i < this.boardHeight; i++) {
-            //         for (let j = 0; j < this.boardWidth; j++) {
-            //             if (this.boardArray[i][j].isBomb == true)
-            //                 tempBomobArray.push(this.boardArray[i][j]);
-            //         }
-            //     }
-            //     console.log(tempBomobArray);
+            if (this.boardArray[x][y].isBomb == true) {
 
-            //     for (let i = 0; i < tempBomobArray.length; i++) {
-            //         let randomNumber = 0;
-            //         while (true) {
-            //             randomNumber = Math.floor(Math.random() * tempBomobArray.length);
-            //             if(tempBomobArray[randomNumber].isVisible == false)
-            //                 break;
-            //         }
+                if (this.isVolumeOn == true) {
+                    const audio = new Audio("music/bomb-1-last.mp3");
+                    audio.play();
+                }
 
-            //         const bombX = tempBomobArray[randomNumber].x;
-            //         const bombY = tempBomobArray[randomNumber].y;
+                const updateButtonDiv = document.getElementById("update-button");
+                const tempBomobArray = [];
 
-            //         console.log(`randomNumber = ${randomNumber}`);
-            //         const showBomb = setTimeout(() => {
-            //             tempBomobArray[randomNumber].isVisible = true;
-            //             this.boardArray[bombX][bombY].isVisible = true;
+                updateButtonDiv.disabled = true;
 
-            //             const bombId = "box-" + tempBomobArray[randomNumber].id;
+                for (let i = 0; i < this.boardHeight; i++) {
+                    for (let j = 0; j < this.boardWidth; j++) {
+                        if (this.boardArray[i][j].isBomb == true)
+                            tempBomobArray.push(this.boardArray[i][j]);
+                    }
+                }
 
-            //             const tempDiv = document.getElementById(bombId);
-                        
-            //         }, 1000);
-            //     }
-            // }
+                console.log(tempBomobArray);
+
+                for (let i = 0; i < tempBomobArray.length - 1; i++) {
+
+                    const timeToCall = 200 + (300-(50/this.boardMines)*(i+1)) * (i+1);
+                    // const timeToCall = Math.floor((Math.random() * 1500) + 300);
+                    // const timeToCall = 200 + (i+1)*200;
+
+                    console.log(`[${i}] = ${timeToCall}`);
+
+                    const showBomb = setTimeout(() => {
+
+                        let randomNumber = 0;
+                        while (true) {
+                            randomNumber = Math.floor(Math.random() * tempBomobArray.length);
+                            if (tempBomobArray[randomNumber].isVisible == false)
+                                break;
+                        }
+
+                        tempBomobArray[randomNumber].isVisible = true;
+
+                        const bombId = "box-" + tempBomobArray[randomNumber].id;
+                        const tempDiv = document.getElementById(bombId);
+
+                        tempDiv.childNodes[0].style.display = "none";
+                        if (this.isVolumeOn == true) {
+                            if(i == tempBomobArray.length-2){
+                                const audio = new Audio("music/bomb-1-last.mp3");
+                                audio.play();
+                            }
+                            else{
+                                const audio = new Audio("music/bomb-1-last.mp3");
+                                audio.volume = 0.6;
+                                audio.play();
+                            }
+                        }
+
+                        if(i == tempBomobArray.length-2)
+                            updateButtonDiv.disabled = false;
+
+                    }, timeToCall);
+                }
+            }
 
 
             if (this.boardArray[x][y].bombAround == 0 && this.boardArray[x][y].isBomb != true) {

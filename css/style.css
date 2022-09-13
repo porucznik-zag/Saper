@@ -89,6 +89,7 @@ body {
 
 .settings-menu {
     position: fixed;
+    z-index: 3;
     width: 10%;
     min-width: 160px;
     /* height: calc(100vh - 400px); */
