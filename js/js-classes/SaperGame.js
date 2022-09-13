@@ -10,6 +10,13 @@ class SaperGame {
         this.isVolumeOn = true;
         this.websiteTheme = "dark";
         this.isGameOver = false;
+        this.isGameWin = false;
+        this.isTimerStarted = false;
+        this.gameMinutes = 0;
+        this.gameSecunds = 0;
+        this.updateTimer = null;
+        this.correctFlagedMines = 0;
+        // this.timeOfStart = new Date();
     }
 
 
@@ -23,13 +30,20 @@ class SaperGame {
         boardMinesInput.value == "" ? this.boardMines = 10 : this.boardMines = boardMinesInput.value;
 
         this.flagsToSet = this.boardMines;
+        this.isGameOver = false;
+        this.isGameWin = false
+        this.isTimerStarted = false;
+        this.gameMinutes = 0;
+        this.gameSecunds = 0;
+        clearInterval(this.updateTimer);
+
+        const gameTimerDiv = document.getElementById("game-timer");
+        gameTimerDiv.innerText = "00:00";
+
     }
 
 
     createBoardArray() {
-
-        this.isGameOver = false;
-
         this.boardArray = Array(parseInt(this.boardHeight));
 
         for (let i = 0; i < this.boardArray.length; i++) {
@@ -191,6 +205,8 @@ class SaperGame {
 
         const flagsToSetDiv = document.getElementById("flags-to-set-div");
         flagsToSetDiv.innerText = this.flagsToSet
+
+        document.getElementById("board-container").style.pointerEvents = "all";
     }
 
 
@@ -203,9 +219,39 @@ class SaperGame {
 
 
         if (event.which == 1) {
+
+            // wystartowanie timer'a
+            if (this.isTimerStarted == false && this.boardArray[x][y].isBomb != true) {
+
+                this.isTimerStarted = true;
+                document.getElementById("stop-button").disabled = false;
+
+
+                this.updateTimer = setInterval(() => {
+                    const gameTimerDiv = document.getElementById("game-timer");
+                    GAME.gameSecunds = GAME.gameSecunds + 1;
+                    if (GAME.gameSecunds == 60) {
+                        GAME.gameSecunds = 0;
+                        GAME.gameMinutes = GAME.gameMinutes + 1;
+                    }
+
+                    let gameSecundsString = GAME.gameSecunds;
+                    let gameMinutesString = GAME.gameMinutes;
+
+                    if (gameSecundsString < 10)
+                        gameSecundsString = "0" + gameSecundsString;
+
+                    if (gameMinutesString < 10)
+                        gameMinutesString = "0" + gameMinutesString;
+
+                    gameTimerDiv.innerText = gameMinutesString + ":" + gameSecundsString;
+                }, 1000);
+            }
+
             if (this.boardArray[x][y].isFlaged == true) {
                 if (this.isVolumeOn == true) {
-                    const audio = new Audio("music/box-lock-2.mp3");
+                    // const audio = new Audio("music/box-lock-2.mp3");
+                    const audio = new Audio("music/set-flag-lock.mp3");
                     audio.play();
                 }
                 return;
@@ -222,7 +268,10 @@ class SaperGame {
 
             if (this.boardArray[x][y].isBomb == true) {
 
+                clearInterval(this.updateTimer);
+
                 this.isGameOver = true;
+                document.getElementById("board-container").style.pointerEvents = "none";
 
                 if (this.isVolumeOn == true) {
                     const audio = new Audio("music/bomb-1-last.mp3");
@@ -230,9 +279,11 @@ class SaperGame {
                 }
 
                 const updateButtonDiv = document.getElementById("update-button");
+                const stopButtonDiv = document.getElementById("stop-button");
                 const tempBomobArray = [];
 
                 updateButtonDiv.disabled = true;
+                stopButtonDiv.disabled = true;
 
                 for (let i = 0; i < this.boardHeight; i++) {
                     for (let j = 0; j < this.boardWidth; j++) {
@@ -245,7 +296,7 @@ class SaperGame {
 
                 for (let i = 0; i < tempBomobArray.length - 1; i++) {
 
-                    const timeToCall = 200 + (300-(50/this.boardMines)*(i+1)) * (i+1);
+                    const timeToCall = 200 + (300 - (50 / this.boardMines) * (i + 1)) * (i + 1);
                     // const timeToCall = Math.floor((Math.random() * 1500) + 300);
                     // const timeToCall = 200 + (i+1)*200;
 
@@ -267,19 +318,23 @@ class SaperGame {
 
                         tempDiv.childNodes[0].style.display = "none";
                         if (this.isVolumeOn == true) {
-                            if(i == tempBomobArray.length-2){
+                            if (i == tempBomobArray.length - 2) {
                                 const audio = new Audio("music/bomb-1-last.mp3");
                                 audio.play();
                             }
-                            else{
+                            else {
                                 const audio = new Audio("music/bomb-1-last.mp3");
                                 audio.volume = 0.6;
                                 audio.play();
                             }
                         }
 
-                        if(i == tempBomobArray.length-2)
-                            updateButtonDiv.disabled = false;
+                        if (i == tempBomobArray.length - 2) {
+                            setTimeout(() => { 
+                                updateButtonDiv.disabled = false;
+                                defatGame();
+                            }, 1000)
+                        }
 
                     }, timeToCall);
                 }
@@ -394,13 +449,30 @@ class SaperGame {
                     }
                 }
             }
+
+
+            //warunek do sprawdzenia wygranej
+            let checkWin = false;
+            for (let i = 0; i < this.boardHeight; i++) {
+                for (let j = 0; j < this.boardWidth; j++) {
+                    if(this.boardArray[i][j].isBomb != true){
+                        if(this.boardArray[i][j].isVisible == false)
+                        checkWin = true;
+                    }
+                }
+            }
+
+            if(checkWin == false){
+                setTimeout(() => {winGame();}, 1000);
+            }
+
         }
 
 
         if (event.which == 3) {
             if (this.boardArray[x][y].isFlaged == false) {
 
-                if(this.flagsToSet == 0){
+                if (this.flagsToSet == 0) {
 
                     if (this.isVolumeOn == true) {
                         const audio = new Audio("music/set-flag-lock.mp3");

@@ -1,5 +1,10 @@
 function customBoardSize() {
 
+    const endOfGameMainDiv = document.getElementById("end-of-game-main-box");
+
+    endOfGameMainDiv.style.opacity = 0;
+    endOfGameMainDiv.style.pointerEvents = "none";
+
     GAME.getBoardSize();
     GAME.createBoardArray();
     GAME.generateBoard();
@@ -47,12 +52,14 @@ function scaleBoxSize() {
     const startButton = document.getElementById("update-button");
 
 
-    // console.log(flagsToSetDiv);
-    // console.log(startFormBoxDiv.clientWidth * 0.8);
 
     flagsToSetDiv.style.width = startButton.clientWidth * 0.5 + "px";
     flagsToSetDiv.style.right = (startFormBoxDiv.clientWidth - flagsToSetDiv.clientWidth) / 2 + "px";
 
+
+    // const endOfGameBox = document.getElementById("end-of-game-box");
+    // endOfGameBox.style.width = boardContainer.clientWidth + "px";
+    // endOfGameBox.style.height = boardContainer.clientHeight + "px";
 
 
     setTimeout(() => { scaleBoxSize(); }, 100);
@@ -135,7 +142,6 @@ function loadSoundBefore() {
 }
 
 
-
 function changeColoToLight() {
     document.documentElement.style.setProperty("--website-bg-color", "whitesmoke");
     document.documentElement.style.setProperty("--main-color", "rgb(82, 141, 193)");
@@ -144,6 +150,9 @@ function changeColoToLight() {
     document.documentElement.style.setProperty("--box-first-layer-color", "rgb(82, 141, 193)");
     document.documentElement.style.setProperty("--box-first-layer-color-hover", "rgb(105, 163, 214)");
     document.documentElement.style.setProperty("--box-second-layer-color", "rgb(103, 116, 126)");
+    document.documentElement.style.setProperty("--end-title-box-bg", "rgba(255, 255, 255, 0.7)");
+    document.documentElement.style.setProperty("--end-title-box-color", "rgb(52, 62, 68)");
+    document.documentElement.style.setProperty("--end-title-box-button", "rgb(82, 141, 193)");
 }
 
 function changeColoToDark() {
@@ -154,6 +163,9 @@ function changeColoToDark() {
     document.documentElement.style.setProperty("--box-first-layer-color", "rgb(43, 91, 133)");
     document.documentElement.style.setProperty("--box-first-layer-color-hover", "rgb(52, 115, 169)");
     document.documentElement.style.setProperty("--box-second-layer-color", "rgb(95, 124, 146)");
+    document.documentElement.style.setProperty("--end-title-box-bg", "rgba(0, 0, 0, 0.7)");
+    document.documentElement.style.setProperty("--end-title-box-color", "rgb(255, 255, 255)");
+    document.documentElement.style.setProperty("--end-title-box-button", "rgb(95, 124, 146)");
 }
 
 function changeWebTheme() {
@@ -171,4 +183,69 @@ function changeWebTheme() {
         GAME.websiteTheme = "dark";
         changeColoToDark();
     }
+}
+
+
+function defatGame() {
+    const endOfGameMainDiv = document.getElementById("end-of-game-main-box");
+    const endOfGameTitleDiv = document.getElementById("end-of-game-title");
+    const endOfGameTimeDiv = document.getElementById("end-of-game-time");
+    const endOfGameTypeDiv = document.getElementById("end-of-game-type");
+
+    endOfGameMainDiv.style.opacity = 1;
+    endOfGameMainDiv.style.pointerEvents = "all";
+
+    endOfGameTitleDiv.innerText = "PRZEGRANA";
+
+
+    let gameSecundsString = GAME.gameSecunds;
+    let gameMinutesString = GAME.gameMinutes;
+
+    if (gameSecundsString < 10)
+        gameSecundsString = "0" + gameSecundsString;
+
+    if (gameMinutesString < 10)
+        gameMinutesString = "0" + gameMinutesString;
+
+    endOfGameTimeDiv.innerText = gameMinutesString + ":" + gameSecundsString;
+
+    endOfGameTypeDiv.innerHTML = GAME.boardWidth + "x" + GAME.boardHeight + " <span>[" + GAME.boardMines + "]</span>";
+}
+
+function winGame() {
+    const endOfGameMainDiv = document.getElementById("end-of-game-main-box");
+    const endOfGameTitleDiv = document.getElementById("end-of-game-title");
+    const endOfGameTimeDiv = document.getElementById("end-of-game-time");
+    const endOfGameTypeDiv = document.getElementById("end-of-game-type");
+
+    endOfGameMainDiv.style.opacity = 1;
+    endOfGameMainDiv.style.pointerEvents = "all";
+
+    endOfGameTitleDiv.innerText = "WYGRANA";
+
+
+    let gameSecundsString = GAME.gameSecunds;
+    let gameMinutesString = GAME.gameMinutes;
+
+    if (gameSecundsString < 10)
+        gameSecundsString = "0" + gameSecundsString;
+
+    if (gameMinutesString < 10)
+        gameMinutesString = "0" + gameMinutesString;
+
+    endOfGameTimeDiv.innerText = gameMinutesString + ":" + gameSecundsString;
+
+    endOfGameTypeDiv.innerHTML = GAME.boardWidth + "x" + GAME.boardHeight + " <span>[" + GAME.boardMines + "]</span>";
+}
+
+
+
+function saveGameResults() {
+    alert("Praca nad tą funkcją jest jeszcze w toku. \nBędzie dostępna po ukończeniu prac nad nią ;)");
+}
+
+
+
+function stopGame() {
+
 }

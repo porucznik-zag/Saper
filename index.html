@@ -17,6 +17,31 @@
 </head>
 
 <body>
+
+    <div id="end-of-game-main-box">
+        <div id="end-of-game-box">
+            <div id="end-of-game-title">WYGRANA</div>
+            <div class="end-of-game-big-box">
+                <div class="end-of-game-mini-box">
+                    <div>CZAS GRY:</div>
+                    <div id="end-of-game-time">00:00</div>
+                </div>
+                <div class="end-of-game-mini-box">
+                    <div>WYMIAR GRY:</div>
+                    <div id="end-of-game-type">10x10 <span>[10]</span></div>
+                </div>
+            </div>
+            <button id="end-of-game-button-save" onclick="saveGameResults()">ZAPISZ WYNIK</button>
+            <button id="end-of-game-button-start" onclick="customBoardSize()">ZAGRAJ JESZCZE RAZ</button>
+        </div>
+    </div>
+
+    <div id="flags-to-set-div">
+        10
+        <!-- <div>FLAGI</div> -->
+        <!-- <div id="flags-to-set-display-div">10</div> -->
+    </div>
+
     <div class="main-container">
         <div class="form-container">
 
@@ -27,11 +52,12 @@
             <div class="settings-menu" id="settings-menu">
                 <div class="settings-box" id="custum-percent-settings-box">
                     <div class="custom-percent-half-box">
-                        <input type="range" id="custom-percent-input" name="board-percent" value="40" min="10" max="100" step="1" onmousemove="changeBoardWidth(this.value)" onchange="changeBoardWidth(this.value)">
+                        <input type="range" id="custom-percent-input" name="board-percent" value="35" min="10" max="100"
+                            step="1" onmousemove="changeBoardWidth(this.value)" onchange="changeBoardWidth(this.value)">
                     </div>
                     <div class="custom-percent-half-box">
                         <div id="custom-percent-title">Szerokość planszy</div>
-                        <div id="custom-percent-value-div">40</div>
+                        <div id="custom-percent-value-div">35</div>
                     </div>
                 </div>
                 <div class="settings-box" id="change-theme-settings-box">
@@ -68,18 +94,12 @@
 
             <div class="form-box" id="start-from-box">
                 <div id="game-timer">00:00</div>
-                <button id="update-button" onclick="customBoardSize()">START</button>
-            </div>
-
-            <div id="flags-to-set-div">
-                10
-                <!-- <div>FLAGI</div> -->
-                <!-- <div id="flags-to-set-display-div">10</div> -->
+                <button id="update-button" onclick="customBoardSize()">NOWA GRA</button>
+                <button id="stop-button" onclick="stopGame()">STOP</button>
             </div>
         </div>
 
-        <div class="board-container" id="board-container">
-        </div>
+        <div class="board-container" id="board-container"></div>
     </div>
 
 
