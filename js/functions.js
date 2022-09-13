@@ -129,6 +129,9 @@ function loadSoundBefore() {
 
     audio = new Audio("music/set-flag-lock.mp3");
     audio.load();
+
+    audio = new Audio("music/bomb-1-last.mp3");
+    audio.load();
 }
 
 
