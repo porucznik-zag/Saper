@@ -1,30 +1,30 @@
-function customBoardSize(){
+function customBoardSize() {
 
     GAME.getBoardSize();
     GAME.createBoardArray();
     GAME.generateBoard();
 
-    if(firstRun == false){
-        if(GAME.isVolumeOn == true){
+    if (firstRun == false) {
+        if (GAME.isVolumeOn == true) {
             const audio = new Audio("music/button-click.mp3");
-            audio.play();       
+            audio.play();
         }
     }
-    else{
+    else {
         firstRun = false;
     }
 }
 
 
 
-function boxClicked(event){
-    if(GAME.isGameOver != true)
+function boxClicked(event) {
+    if (GAME.isGameOver != true)
         GAME.boxClicedAction(event);
 }
 
 
 
-function scaleBoxSize(){
+function scaleBoxSize() {
     const boxes = document.querySelectorAll(".box");
     const boardContainer = document.getElementById("board-container");
 
@@ -34,12 +34,12 @@ function scaleBoxSize(){
     const boardWidth = boardContainer.clientWidth;
 
 
-    boardContainer.style.height = ((boardWidth - boardGap*(GAME.boardWidth-1)) / GAME.boardWidth)*GAME.boardHeight + boardGap*(GAME.boardHeight-1) + "px";
+    boardContainer.style.height = ((boardWidth - boardGap * (GAME.boardWidth - 1)) / GAME.boardWidth) * GAME.boardHeight + boardGap * (GAME.boardHeight - 1) + "px";
 
     boxes.forEach(element => {
-        element.style.width = (boardWidth - boardGap*(GAME.boardWidth-1)) / GAME.boardWidth + "px";
-        element.style.height = (boardWidth - boardGap*(GAME.boardWidth-1)) / GAME.boardWidth + "px";
-        element.lastChild.style.fontSize = boardWidth / (GAME.boardWidth*2.5) + "px";
+        element.style.width = (boardWidth - boardGap * (GAME.boardWidth - 1)) / GAME.boardWidth + "px";
+        element.style.height = (boardWidth - boardGap * (GAME.boardWidth - 1)) / GAME.boardWidth + "px";
+        element.lastChild.style.fontSize = boardWidth / (GAME.boardWidth * 2.5) + "px";
     });
 
     const startFormBoxDiv = document.getElementById("start-from-box");
@@ -55,12 +55,12 @@ function scaleBoxSize(){
 
 
 
-    setTimeout(() => {scaleBoxSize();}, 100);
+    setTimeout(() => { scaleBoxSize(); }, 100);
 }
 
 
 
-function changeBoardWidth(percentValue){
+function changeBoardWidth(percentValue) {
     const percentValueDiv = document.getElementById("custom-percent-value-div");
     const boardContainer = document.getElementById("board-container");
 
@@ -70,11 +70,11 @@ function changeBoardWidth(percentValue){
 
 
 
-function openSettingsMenu(){
+function openSettingsMenu() {
 
-    if(GAME.isVolumeOn == true){
+    if (GAME.isVolumeOn == true) {
         const audio = new Audio("music/button-click.mp3");
-        audio.play();       
+        audio.play();
     }
 
     const settingsMenuDiv = document.getElementById("settings-menu");
@@ -83,14 +83,14 @@ function openSettingsMenu(){
 
 
 
-function switchVolume(){
+function switchVolume() {
 
     const audio = new Audio("music/button-click.mp3");
-    audio.play();       
+    audio.play();
 
     const volumeSwitchDiv = document.getElementById("icon-switch-box");
-    
-    if(GAME.isVolumeOn == true){
+
+    if (GAME.isVolumeOn == true) {
         GAME.isVolumeOn = false;
 
         volumeSwitchDiv.replaceChildren();
@@ -100,7 +100,7 @@ function switchVolume(){
 
         volumeSwitchDiv.appendChild(volumeOffIcon);
     }
-    else{
+    else {
         GAME.isVolumeOn = true;
 
         volumeSwitchDiv.replaceChildren();
@@ -112,56 +112,59 @@ function switchVolume(){
     }
 }
 
-function loadSoundBefore(){
+function loadSoundBefore() {
     let audio = new Audio("music/box-lock-2.mp3");
     audio.volume = 0;
     audio.muted = true;
     audio.load();
 
     audio = new Audio("music/box-click.mp3");
-    audio.load();  
-    
+    audio.load();
+
     audio = new Audio("music/set-flag.mp3");
-    audio.load(); 
+    audio.load();
 
     audio = new Audio("music/button-click.mp3");
+    audio.load();
+
+    audio = new Audio("music/set-flag-lock.mp3");
     audio.load();
 }
 
 
 
-function changeColoToLight(){
-    document.documentElement.style.setProperty("--website-bg-color","whitesmoke");
-    document.documentElement.style.setProperty("--main-color","rgb(82, 141, 193)");
-    document.documentElement.style.setProperty("--main-bg-color","rgb(52, 62, 68)");
-    document.documentElement.style.setProperty("--flag-color","rgb(60, 71, 91)");
-    document.documentElement.style.setProperty("--box-first-layer-color","rgb(82, 141, 193)");
-    document.documentElement.style.setProperty("--box-first-layer-color-hover","rgb(105, 163, 214)");
-    document.documentElement.style.setProperty("--box-second-layer-color","rgb(103, 116, 126)");
+function changeColoToLight() {
+    document.documentElement.style.setProperty("--website-bg-color", "whitesmoke");
+    document.documentElement.style.setProperty("--main-color", "rgb(82, 141, 193)");
+    document.documentElement.style.setProperty("--main-bg-color", "rgb(52, 62, 68)");
+    document.documentElement.style.setProperty("--flag-color", "rgb(60, 71, 91)");
+    document.documentElement.style.setProperty("--box-first-layer-color", "rgb(82, 141, 193)");
+    document.documentElement.style.setProperty("--box-first-layer-color-hover", "rgb(105, 163, 214)");
+    document.documentElement.style.setProperty("--box-second-layer-color", "rgb(103, 116, 126)");
 }
 
-function changeColoToDark(){
-    document.documentElement.style.setProperty("--website-bg-color","rgb(52, 65, 78)");
-    document.documentElement.style.setProperty("--main-color","rgb(82, 141, 193))");
-    document.documentElement.style.setProperty("--main-bg-color","rgb(78, 85, 89)");
-    document.documentElement.style.setProperty("--flag-color","rgb(169, 208, 234)");
-    document.documentElement.style.setProperty("--box-first-layer-color","rgb(43, 91, 133)");
-    document.documentElement.style.setProperty("--box-first-layer-color-hover","rgb(52, 115, 169)");
-    document.documentElement.style.setProperty("--box-second-layer-color","rgb(95, 124, 146)");
+function changeColoToDark() {
+    document.documentElement.style.setProperty("--website-bg-color", "rgb(52, 65, 78)");
+    document.documentElement.style.setProperty("--main-color", "rgb(82, 141, 193))");
+    document.documentElement.style.setProperty("--main-bg-color", "rgb(78, 85, 89)");
+    document.documentElement.style.setProperty("--flag-color", "rgb(169, 208, 234)");
+    document.documentElement.style.setProperty("--box-first-layer-color", "rgb(43, 91, 133)");
+    document.documentElement.style.setProperty("--box-first-layer-color-hover", "rgb(52, 115, 169)");
+    document.documentElement.style.setProperty("--box-second-layer-color", "rgb(95, 124, 146)");
 }
 
-function changeWebTheme(){
+function changeWebTheme() {
 
-    if(GAME.isVolumeOn == true){
+    if (GAME.isVolumeOn == true) {
         const audio = new Audio("music/button-click.mp3");
-        audio.play();       
+        audio.play();
     }
 
-    if(GAME.websiteTheme == "dark"){
+    if (GAME.websiteTheme == "dark") {
         GAME.websiteTheme = "light";
         changeColoToLight();
     }
-    else if(GAME.websiteTheme == "light"){
+    else if (GAME.websiteTheme == "light") {
         GAME.websiteTheme = "dark";
         changeColoToDark();
     }
