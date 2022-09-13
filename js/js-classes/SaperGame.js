@@ -5,10 +5,11 @@ class SaperGame {
         this.boardMines = 0;
         this.minesArray = [];
         this.boardArray = new Array();
-        this.setFlags = 0;
+        this.flagsToSet = 0;
         this.bestScore = 0;
         this.isVolumeOn = true;
         this.websiteTheme = "dark";
+        this.isGameOver = false;
     }
 
 
@@ -20,10 +21,15 @@ class SaperGame {
         boardWidthInput.value == "" ? this.boardWidth = 10 : this.boardWidth = boardWidthInput.value;
         boardHeightInput.value == "" ? this.boardHeight = 10 : this.boardHeight = boardHeightInput.value;
         boardMinesInput.value == "" ? this.boardMines = 10 : this.boardMines = boardMinesInput.value;
+
+        this.flagsToSet = this.boardMines;
     }
 
 
     createBoardArray() {
+
+        this.isGameOver = false;
+
         this.boardArray = Array(parseInt(this.boardHeight));
 
         for (let i = 0; i < this.boardArray.length; i++) {
@@ -182,6 +188,9 @@ class SaperGame {
 
             boardContainer.appendChild(this.boardArray[x][y].generateBomb());
         }
+
+        const flagsToSetDiv = document.getElementById("flags-to-set-div");
+        flagsToSetDiv.innerText = this.flagsToSet
     }
 
 
@@ -212,6 +221,8 @@ class SaperGame {
 
 
             if (this.boardArray[x][y].isBomb == true) {
+
+                this.isGameOver = true;
 
                 if (this.isVolumeOn == true) {
                     const audio = new Audio("music/bomb-1-last.mp3");
@@ -387,22 +398,48 @@ class SaperGame {
 
 
         if (event.which == 3) {
-            if (this.isVolumeOn == true) {
-                const audio = new Audio("music/set-flag.mp3");
-                audio.play();
-            }
-
             if (this.boardArray[x][y].isFlaged == false) {
+
+                if(this.flagsToSet == 0){
+
+                    if (this.isVolumeOn == true) {
+                        const audio = new Audio("music/set-flag-lock.mp3");
+                        // const audio = new Audio("music/box-lock-2.mp3");
+                        audio.play();
+                    }
+
+                    return;
+                }
+
+                if (this.isVolumeOn == true) {
+                    const audio = new Audio("music/set-flag.mp3");
+                    audio.play();
+                }
+
                 const flag = document.createElement("div");
                 flag.classList.add("flag");
 
                 event.target.appendChild(flag);
 
                 this.boardArray[x][y].isFlaged = true;
+
+                const flagsToSetDiv = document.getElementById("flags-to-set-div");
+                this.flagsToSet = this.flagsToSet - 1;
+                flagsToSetDiv.innerText = this.flagsToSet;
             }
             else {
+
+                if (this.isVolumeOn == true) {
+                    const audio = new Audio("music/set-flag.mp3");
+                    audio.play();
+                }
+
                 event.target.removeChild(event.target.lastChild);
                 this.boardArray[x][y].isFlaged = false;
+
+                const flagsToSetDiv = document.getElementById("flags-to-set-div");
+                this.flagsToSet = this.flagsToSet + 1;
+                flagsToSetDiv.innerText = this.flagsToSet;
             }
         }
     }

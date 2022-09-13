@@ -18,7 +18,8 @@ function customBoardSize(){
 
 
 function boxClicked(event){
-    GAME.boxClicedAction(event);
+    if(GAME.isGameOver != true)
+        GAME.boxClicedAction(event);
 }
 
 
@@ -40,6 +41,19 @@ function scaleBoxSize(){
         element.style.height = (boardWidth - boardGap*(GAME.boardWidth-1)) / GAME.boardWidth + "px";
         element.lastChild.style.fontSize = boardWidth / (GAME.boardWidth*2.5) + "px";
     });
+
+    const startFormBoxDiv = document.getElementById("start-from-box");
+    const flagsToSetDiv = document.getElementById("flags-to-set-div");
+    const startButton = document.getElementById("update-button");
+
+
+    // console.log(flagsToSetDiv);
+    // console.log(startFormBoxDiv.clientWidth * 0.8);
+
+    flagsToSetDiv.style.width = startButton.clientWidth * 0.5 + "px";
+    flagsToSetDiv.style.right = (startFormBoxDiv.clientWidth - flagsToSetDiv.clientWidth) / 2 + "px";
+
+
 
     setTimeout(() => {scaleBoxSize();}, 100);
 }
