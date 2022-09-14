@@ -10,6 +10,7 @@ class Box {
         this.isChecked = false;
         this.isNeighbour = false;
         this.bombAround = 0;
+        this.isLock = false;
     }  
 
     generateBomb(){

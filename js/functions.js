@@ -6,6 +6,33 @@ function customBoardSize() {
     endOfGameMainDiv.style.pointerEvents = "none";
 
     GAME.getBoardSize();
+
+    console.log(`W: ${GAME.boardWidth} | H: ${GAME.boardHeight} | M: ${GAME.boardMines}`);
+
+    if(GAME.boardWidth <= 1){
+        GAME.boardWidth = 10;
+        GAME.boardHeight = 10;
+        GAME.boardMines = 10;
+        setTimeout(() => {alert("Podano niepoprawną szerokość!\nDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]");},500);
+        // return;
+    }
+
+    if(GAME.boardHeight <= 1){
+        GAME.boardWidth = 10;
+        GAME.boardHeight = 10;
+        GAME.boardMines = 10;
+        setTimeout(() => {alert("Podano niepoprawną wysokość!\nDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]");},500);
+        // return;
+    }
+
+    if(GAME.boardMines <= 0 || GAME.boardArray >=  GAME.boardWidth*GAME.boardHeight){
+        GAME.boardWidth = 10;
+        GAME.boardHeight = 10;
+        GAME.boardMines = 10;
+        setTimeout(() => {alert("Podano niepoprawną liczbę min!\nDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]");},500);
+        // return;
+    }
+
     GAME.createBoardArray();
     GAME.generateBoard();
 
@@ -36,16 +63,50 @@ function scaleBoxSize() {
     let = boardGap = 2;
     boardContainer.style.gap = boardGap + "px";
 
-    const boardWidth = boardContainer.clientWidth;
+    const boardWidth = parseFloat(boardContainer.clientWidth);
+
+    boardContainer.style.width = 431;
 
 
-    boardContainer.style.height = ((boardWidth - boardGap * (GAME.boardWidth - 1)) / GAME.boardWidth) * GAME.boardHeight + boardGap * (GAME.boardHeight - 1) + "px";
+    const boxWidth = document.getElementById("box-0").clientWidth;
+
+
+
+    boardContainer.style.height = ((boardWidth - (boardGap * (GAME.boardWidth - 1))) / GAME.boardWidth) * GAME.boardHeight + boardGap * (GAME.boardHeight - 1) + "px";
+
 
     boxes.forEach(element => {
         element.style.width = (boardWidth - boardGap * (GAME.boardWidth - 1)) / GAME.boardWidth + "px";
         element.style.height = (boardWidth - boardGap * (GAME.boardWidth - 1)) / GAME.boardWidth + "px";
         element.lastChild.style.fontSize = boardWidth / (GAME.boardWidth * 2.5) + "px";
     });
+
+    // const boxes = document.querySelectorAll(".box");
+    // const boardContainer = document.getElementById("board-container");
+
+    // // const boardGap = 2;
+    // // boardContainer.style.gap = boardGap + "px";
+
+    // const boardWidth = window.innerWidth * (widthPercent/100);
+    // const boxWidth = boardWidth / GAME.boardWidth;
+
+    // // console.log(boardWidth + " " + boxWidth);
+
+
+    // boxes.forEach(element => {
+    //     element.style.width = boxWidth + "px";
+    //     element.style.height = boxWidth + "px";
+    //     element.lastChild.style.fontSize = boardWidth / (GAME.boardWidth * 2.5) + "px";
+    // });
+
+    // boardContainer.style.height = (boxWidth * GAME.boardHeight) + "px";
+    // boardContainer.style.width = (boxWidth * GAME.boardWidth) + "px";
+    // // boardContainer.style.width = boardWidth;
+
+
+
+
+
 
     const startFormBoxDiv = document.getElementById("start-from-box");
     const flagsToSetDiv = document.getElementById("flags-to-set-div");
@@ -73,6 +134,7 @@ function changeBoardWidth(percentValue) {
 
     percentValueDiv.innerText = percentValue;
     boardContainer.style.width = percentValue + "%";
+    // widthPercent = percentValue;
 }
 
 

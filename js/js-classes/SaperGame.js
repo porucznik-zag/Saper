@@ -25,9 +25,9 @@ class SaperGame {
         const boardHeightInput = document.getElementById("custom-height-input");
         const boardMinesInput = document.getElementById("custom-mines-input");
 
-        boardWidthInput.value == "" ? this.boardWidth = 10 : this.boardWidth = boardWidthInput.value;
-        boardHeightInput.value == "" ? this.boardHeight = 10 : this.boardHeight = boardHeightInput.value;
-        boardMinesInput.value == "" ? this.boardMines = 10 : this.boardMines = boardMinesInput.value;
+        boardWidthInput.value == "" ? this.boardWidth = 10 : this.boardWidth = parseInt(boardWidthInput.value);
+        boardHeightInput.value == "" ? this.boardHeight = 10 : this.boardHeight = parseInt(boardHeightInput.value);
+        boardMinesInput.value == "" ? this.boardMines = 10 : this.boardMines = parseInt(boardMinesInput.value);
 
         this.flagsToSet = this.boardMines;
         this.isGameOver = false;
@@ -294,6 +294,13 @@ class SaperGame {
 
                 console.log(tempBomobArray);
 
+                if(tempBomobArray.length == 1){
+                    setTimeout(() => { 
+                        updateButtonDiv.disabled = false;
+                        defatGame();
+                    }, 1000)
+                }
+
                 for (let i = 0; i < tempBomobArray.length - 1; i++) {
 
                     const timeToCall = 200 + (300 - (50 / this.boardMines) * (i + 1)) * (i + 1);
@@ -463,6 +470,9 @@ class SaperGame {
             }
 
             if(checkWin == false){
+                clearInterval(this.updateTimer);
+                document.getElementById("board-container").style.pointerEvents = "none";
+                this.isGameOver = true;
                 setTimeout(() => {winGame();}, 1000);
             }
 
