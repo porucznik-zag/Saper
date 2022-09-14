@@ -7,30 +7,41 @@ function customBoardSize() {
 
     GAME.getBoardSize();
 
-    console.log(`W: ${GAME.boardWidth} | H: ${GAME.boardHeight} | M: ${GAME.boardMines}`);
+    const boardWidthInput = document.getElementById("custom-width-input");
+    const boardHeightInput = document.getElementById("custom-height-input");
+    const boardMinesInput = document.getElementById("custom-mines-input");
 
-    if(GAME.boardWidth <= 1){
-        GAME.boardWidth = 10;
-        GAME.boardHeight = 10;
-        GAME.boardMines = 10;
-        setTimeout(() => {alert("Podano niepoprawną szerokość!\nDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]");},500);
-        // return;
-    }
-
-    if(GAME.boardHeight <= 1){
-        GAME.boardWidth = 10;
-        GAME.boardHeight = 10;
-        GAME.boardMines = 10;
-        setTimeout(() => {alert("Podano niepoprawną wysokość!\nDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]");},500);
-        // return;
-    }
-
-    if(GAME.boardMines <= 0 || GAME.boardArray >=  GAME.boardWidth*GAME.boardHeight){
+    if (GAME.boardWidth <= 1) {
         GAME.boardWidth = 10;
         GAME.boardHeight = 10;
         GAME.boardMines = 10;
         GAME.flagsToSet = 10;
-        setTimeout(() => {alert("Podano niepoprawną liczbę min!\nDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]");},500);
+        boardWidthInput.value = "";
+        boardHeightInput.value = "";
+        boardMinesInput.value = "";
+        setTimeout(() => { alert("Podano niepoprawną szerokość!\nDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]"); }, 500);
+        // return;
+    }
+    else if (GAME.boardHeight <= 1) {
+        GAME.boardWidth = 10;
+        GAME.boardHeight = 10;
+        GAME.boardMines = 10;
+        GAME.flagsToSet = 10;
+        boardWidthInput.value = "";
+        boardHeightInput.value = "";
+        boardMinesInput.value = "";
+        setTimeout(() => { alert("Podano niepoprawną wysokość!\nDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]"); }, 500);
+        // return;
+    }
+    else if (GAME.boardMines <= 0 || GAME.boardArray >= GAME.boardWidth * GAME.boardHeight) {
+        GAME.boardWidth = 10;
+        GAME.boardHeight = 10;
+        GAME.boardMines = 10;
+        GAME.flagsToSet = 10;
+        boardWidthInput.value = "";
+        boardHeightInput.value = "";
+        boardMinesInput.value = "";
+        setTimeout(() => { alert("Podano niepoprawną liczbę min!\nDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]"); }, 500);
         // return;
     }
 

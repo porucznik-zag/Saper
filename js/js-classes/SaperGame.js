@@ -16,7 +16,7 @@ class SaperGame {
         this.gameSecunds = 0;
         this.updateTimer = null;
         this.correctFlagedMines = 0;
-        // this.timeOfStart = new Date();
+        this.timeOfStart = new Date();
     }
 
 
