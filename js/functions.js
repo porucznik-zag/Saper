@@ -29,6 +29,7 @@ function customBoardSize() {
         GAME.boardWidth = 10;
         GAME.boardHeight = 10;
         GAME.boardMines = 10;
+        GAME.flagsToSet = 10;
         setTimeout(() => {alert("Podano niepoprawną liczbę min!\nDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]");},500);
         // return;
     }

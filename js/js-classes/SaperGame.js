@@ -39,7 +39,6 @@ class SaperGame {
 
         const gameTimerDiv = document.getElementById("game-timer");
         gameTimerDiv.innerText = "00:00";
-
     }
 
 
@@ -204,7 +203,7 @@ class SaperGame {
         }
 
         const flagsToSetDiv = document.getElementById("flags-to-set-div");
-        flagsToSetDiv.innerText = this.flagsToSet
+        flagsToSetDiv.innerText = this.flagsToSet;
 
         document.getElementById("board-container").style.pointerEvents = "all";
     }
