@@ -17,6 +17,10 @@ class SaperGame {
         this.updateTimer = null;
         this.correctFlagedMines = 0;
         this.timeOfStart = new Date();
+        this.gameTime = 0;
+        this.gameFormat = "";
+        this.gameRecords = new Map();
+        this.nickname = "";
     }
 
 
@@ -24,10 +28,12 @@ class SaperGame {
         const boardWidthInput = document.getElementById("custom-width-input");
         const boardHeightInput = document.getElementById("custom-height-input");
         const boardMinesInput = document.getElementById("custom-mines-input");
+        const nicknameInput = document.getElementById("custom-nick-input");
 
         boardWidthInput.value == "" ? this.boardWidth = 10 : this.boardWidth = parseInt(boardWidthInput.value);
         boardHeightInput.value == "" ? this.boardHeight = 10 : this.boardHeight = parseInt(boardHeightInput.value);
         boardMinesInput.value == "" ? this.boardMines = 10 : this.boardMines = parseInt(boardMinesInput.value);
+        nicknameInput.value == "" ? this.nickname = "GOŚĆ" : this.nickname = nicknameInput.value;
 
         this.flagsToSet = this.boardMines;
         this.isGameOver = false;
@@ -35,10 +41,14 @@ class SaperGame {
         this.isTimerStarted = false;
         this.gameMinutes = 0;
         this.gameSecunds = 0;
+        this.timeOfStart = new Date();
+        this.gameTime = 0;
         clearInterval(this.updateTimer);
 
         const gameTimerDiv = document.getElementById("game-timer");
         gameTimerDiv.innerText = "00:00";
+
+        this.gameFormat = this.boardWidth + "x" + this.boardHeight + "x" + this.boardMines;
     }
 
 
@@ -222,6 +232,10 @@ class SaperGame {
             // wystartowanie timer'a
             if (this.isTimerStarted == false && this.boardArray[x][y].isBomb != true) {
 
+                this.timeOfStart = new Date().getTime();
+
+                console.log(this.timeOfStart);
+
                 this.isTimerStarted = true;
                 document.getElementById("stop-button").disabled = false;
 
@@ -265,8 +279,10 @@ class SaperGame {
             this.boardArray[x][y].isVisible = true;
 
 
+            // przegrana po odkryciu bomby
             if (this.boardArray[x][y].isBomb == true) {
 
+                this.gameTime = new Date().getTime() - this.timeOfStart;
                 clearInterval(this.updateTimer);
 
                 this.isGameOver = true;
@@ -293,8 +309,8 @@ class SaperGame {
 
                 console.log(tempBomobArray);
 
-                if(tempBomobArray.length == 1){
-                    setTimeout(() => { 
+                if (tempBomobArray.length == 1) {
+                    setTimeout(() => {
                         updateButtonDiv.disabled = false;
                         defatGame();
                     }, 1000)
@@ -336,7 +352,7 @@ class SaperGame {
                         }
 
                         if (i == tempBomobArray.length - 2) {
-                            setTimeout(() => { 
+                            setTimeout(() => {
                                 updateButtonDiv.disabled = false;
                                 defatGame();
                             }, 1000)
@@ -461,18 +477,19 @@ class SaperGame {
             let checkWin = false;
             for (let i = 0; i < this.boardHeight; i++) {
                 for (let j = 0; j < this.boardWidth; j++) {
-                    if(this.boardArray[i][j].isBomb != true){
-                        if(this.boardArray[i][j].isVisible == false)
-                        checkWin = true;
+                    if (this.boardArray[i][j].isBomb != true) {
+                        if (this.boardArray[i][j].isVisible == false)
+                            checkWin = true;
                     }
                 }
             }
 
-            if(checkWin == false){
+            if (checkWin == false) {
+                this.gameTime = new Date().getTime() - this.timeOfStart;
                 clearInterval(this.updateTimer);
                 document.getElementById("board-container").style.pointerEvents = "none";
                 this.isGameOver = true;
-                setTimeout(() => {winGame();}, 1000);
+                setTimeout(() => { winGame(); }, 1000);
             }
 
         }
@@ -523,5 +540,68 @@ class SaperGame {
                 flagsToSetDiv.innerText = this.flagsToSet;
             }
         }
+    }
+
+    sortGameRecords() {
+        this.gameRecords.forEach((value, key) => {
+            value = value.sort(function (a, b) { return a[1] - b[1] });
+        });
+    }
+
+
+    addNewRecord() {
+        // if(this.gameRecords.size == 0){
+        //     const mainArray = new Array();
+        //     const pushArray = new Array();
+        //     pushArray.push(this.nickname);
+        //     pushArray.push(this.gameTime.toString());
+        //     this.gameRecords.set(this.gameFormat,mainArray);
+        //     this.gameRecords.get(this.gameFormat).push(pushArray);
+        //     return;
+        // }
+
+        if (this.gameRecords.has(this.gameFormat) == true) {
+            console.log(this.gameFormat + this.nickname + this.gameTime);
+
+            const pushArray = new Array();
+            pushArray.push(this.nickname);
+            pushArray.push(this.gameTime.toString());
+            
+            let isSameExsist = false;
+            for(let i=0; i<this.gameRecords.get(this.gameFormat).length; i++){
+                if(this.gameRecords.get(this.gameFormat)[i][0] == pushArray[0]){
+                    if(this.gameRecords.get(this.gameFormat)[i][1] == pushArray[1]){
+                        isSameExsist = true;
+                        break;
+                    }
+                }
+            }
+
+            if(isSameExsist == false)
+                this.gameRecords.get(this.gameFormat).push(pushArray);
+
+
+            this.sortGameRecords();
+
+
+
+            if(this.gameRecords.get(this.gameFormat).length > 10){
+                this.gameRecords.get(this.gameFormat).pop();
+            }
+
+        }
+        else {
+            const mainArray = new Array();
+            const pushArray = new Array();
+            pushArray.push(this.nickname);
+            pushArray.push(this.gameTime.toString());
+            this.gameRecords.set(this.gameFormat,mainArray);
+            this.gameRecords.get(this.gameFormat).push(pushArray);
+        }
+
+
+        console.log(this.gameRecords);
+
+        compressCookieFile(this.gameRecords);
     }
 }

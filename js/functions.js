@@ -1,5 +1,8 @@
 function customBoardSize() {
 
+    const gameRecordsMainBoxDiv = document.getElementById("game-records-main-box");
+    gameRecordsMainBoxDiv.style.display = "none";
+
     const endOfGameMainDiv = document.getElementById("end-of-game-main-box");
 
     endOfGameMainDiv.style.opacity = 0;
@@ -11,38 +14,38 @@ function customBoardSize() {
     const boardHeightInput = document.getElementById("custom-height-input");
     const boardMinesInput = document.getElementById("custom-mines-input");
 
-    if (GAME.boardWidth <= 1) {
+    if (GAME.boardWidth <= 1 && GAME.boardWidth <= 50) {
         GAME.boardWidth = 10;
         GAME.boardHeight = 10;
         GAME.boardMines = 10;
         GAME.flagsToSet = 10;
+        GAME.gameFormat = "10x10x10";
         boardWidthInput.value = "";
         boardHeightInput.value = "";
         boardMinesInput.value = "";
-        setTimeout(() => { alert("Podano niepoprawną szerokość!\nDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]"); }, 500);
-        // return;
+        setTimeout(() => { alert("Podano niepoprawną szerokość!\nPoprawny zakres: 1 - 50\nDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]"); }, 500);
     }
-    else if (GAME.boardHeight <= 1) {
+    else if (GAME.boardHeight <= 1 && GAME.boardHeight <= 50) {
         GAME.boardWidth = 10;
         GAME.boardHeight = 10;
         GAME.boardMines = 10;
         GAME.flagsToSet = 10;
+        GAME.gameFormat = "10x10x10";
         boardWidthInput.value = "";
         boardHeightInput.value = "";
         boardMinesInput.value = "";
-        setTimeout(() => { alert("Podano niepoprawną wysokość!\nDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]"); }, 500);
-        // return;
+        setTimeout(() => { alert("Podano niepoprawną wysokość!\nPoprawny zakres: 1 - 50\nDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]"); }, 500);
     }
     else if (GAME.boardMines <= 0 || GAME.boardArray >= GAME.boardWidth * GAME.boardHeight) {
         GAME.boardWidth = 10;
         GAME.boardHeight = 10;
         GAME.boardMines = 10;
         GAME.flagsToSet = 10;
+        GAME.gameFormat = "10x10x10";
         boardWidthInput.value = "";
         boardHeightInput.value = "";
         boardMinesInput.value = "";
         setTimeout(() => { alert("Podano niepoprawną liczbę min!\nDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]"); }, 500);
-        // return;
     }
 
     GAME.createBoardArray();
@@ -130,6 +133,10 @@ function scaleBoxSize() {
     flagsToSetDiv.style.right = (startFormBoxDiv.clientWidth - flagsToSetDiv.clientWidth) / 2 + "px";
 
 
+    // const body = document.body, html = document.documentElement;
+    // const gameRecordsMainBox = document.getElementById("game-records-main-box");
+    // gameRecordsMainBox.style.height = Math.max( body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight ) - 101 + "px";
+
     // const endOfGameBox = document.getElementById("end-of-game-box");
     // endOfGameBox.style.width = boardContainer.clientWidth + "px";
     // endOfGameBox.style.height = boardContainer.clientHeight + "px";
@@ -216,10 +223,11 @@ function loadSoundBefore() {
 }
 
 
+
 function changeColoToLight() {
-    document.documentElement.style.setProperty("--website-bg-color", "whitesmoke");
-    document.documentElement.style.setProperty("--main-color", "rgb(82, 141, 193)");
-    document.documentElement.style.setProperty("--main-bg-color", "rgb(52, 62, 68)");
+    document.documentElement.style.setProperty("--website-bg-color", "rgb(240, 251, 255)");
+    document.documentElement.style.setProperty("--main-color", "rgb(141, 195, 242)");
+    document.documentElement.style.setProperty("--main-bg-color", "rgb(32, 53, 65)");
     document.documentElement.style.setProperty("--flag-color", "rgb(60, 71, 91)");
     document.documentElement.style.setProperty("--box-first-layer-color", "rgb(82, 141, 193)");
     document.documentElement.style.setProperty("--box-first-layer-color-hover", "rgb(105, 163, 214)");
@@ -227,12 +235,21 @@ function changeColoToLight() {
     document.documentElement.style.setProperty("--end-title-box-bg", "rgba(255, 255, 255, 0.7)");
     document.documentElement.style.setProperty("--end-title-box-color", "rgb(52, 62, 68)");
     document.documentElement.style.setProperty("--end-title-box-button", "rgb(82, 141, 193)");
+    
+    document.documentElement.style.setProperty("--game-records-bg", "rgb(203, 225, 255)");
+    document.documentElement.style.setProperty("--game-records-border-color", "rgb(16, 44, 85)");
+    document.documentElement.style.setProperty("--game-records-main-color", "rgb(255, 255, 255)");
+    document.documentElement.style.setProperty("--game-records-formats-list-title-color", "rgb(76, 157, 224)");
+    document.documentElement.style.setProperty("--game-records-list-title-bg-color", "rgb(216, 144, 55)");
+    document.documentElement.style.setProperty("--game-records-list-title-color", "rgb(88, 59, 23)");
+    document.documentElement.style.setProperty("--game-records-box-bg-colo", "rgb(242, 210, 122)");
+    document.documentElement.style.setProperty("--game-records-box-color", "rgb(129, 104, 33)");
 }
 
 function changeColoToDark() {
     document.documentElement.style.setProperty("--website-bg-color", "rgb(52, 65, 78)");
-    document.documentElement.style.setProperty("--main-color", "rgb(82, 141, 193))");
-    document.documentElement.style.setProperty("--main-bg-color", "rgb(78, 85, 89)");
+    document.documentElement.style.setProperty("--main-color", "rgb(82, 141, 193)");
+    document.documentElement.style.setProperty("--main-bg-color", "rgb(32, 53, 65)");
     document.documentElement.style.setProperty("--flag-color", "rgb(169, 208, 234)");
     document.documentElement.style.setProperty("--box-first-layer-color", "rgb(43, 91, 133)");
     document.documentElement.style.setProperty("--box-first-layer-color-hover", "rgb(52, 115, 169)");
@@ -240,6 +257,15 @@ function changeColoToDark() {
     document.documentElement.style.setProperty("--end-title-box-bg", "rgba(0, 0, 0, 0.7)");
     document.documentElement.style.setProperty("--end-title-box-color", "rgb(255, 255, 255)");
     document.documentElement.style.setProperty("--end-title-box-button", "rgb(95, 124, 146)");
+
+    document.documentElement.style.setProperty("--game-records-bg", "rgb(18, 22, 28)");
+    document.documentElement.style.setProperty("--game-records-border-color", "white");
+    document.documentElement.style.setProperty("--game-records-main-color", "white");
+    document.documentElement.style.setProperty("--game-records-formats-list-title-color", "rgb(43, 91, 133)");
+    document.documentElement.style.setProperty("--game-records-list-title-bg-color", "rgb(142, 90, 27)");
+    document.documentElement.style.setProperty("--game-records-list-title-color", "white");
+    document.documentElement.style.setProperty("--game-records-box-bg-colo", "rgb(209, 144, 65)");
+    document.documentElement.style.setProperty("--game-records-box-color", "white");
 }
 
 function changeWebTheme() {
@@ -261,6 +287,9 @@ function changeWebTheme() {
 
 
 function defatGame() {
+    const endOfGameButtonSaveDiv = document.getElementById("end-of-game-button-save");
+    endOfGameButtonSaveDiv.style.display = "none";
+
     const endOfGameMainDiv = document.getElementById("end-of-game-main-box");
     const endOfGameTitleDiv = document.getElementById("end-of-game-title");
     const endOfGameTimeDiv = document.getElementById("end-of-game-time");
@@ -272,8 +301,10 @@ function defatGame() {
     endOfGameTitleDiv.innerText = "PRZEGRANA";
 
 
-    let gameSecundsString = GAME.gameSecunds;
-    let gameMinutesString = GAME.gameMinutes;
+    let gameSecundsString = Math.floor(GAME.gameTime / 1000);
+    let gameMinutesString = Math.floor((GAME.gameTime / 1000) / 60);
+    // let gameMilisecundsString = GAME.gameTime%1000;
+    // let gameMilisecundsString = Math.floor((GAME.gameTime%1000) / 10);
 
     if (gameSecundsString < 10)
         gameSecundsString = "0" + gameSecundsString;
@@ -310,16 +341,139 @@ function winGame() {
     endOfGameTimeDiv.innerText = gameMinutesString + ":" + gameSecundsString;
 
     endOfGameTypeDiv.innerHTML = GAME.boardWidth + "x" + GAME.boardHeight + " <span>[" + GAME.boardMines + "]</span>";
-}
 
-
-
-function saveGameResults() {
-    alert("Praca nad tą funkcją jest jeszcze w toku. \nBędzie dostępna po ukończeniu prac nad nią ;)");
+    const endOfGameButtonSaveDiv = document.getElementById("end-of-game-button-save");
+    endOfGameButtonSaveDiv.style.display = "flex";
 }
 
 
 
 function stopGame() {
 
+}
+
+
+
+function openRecordsScreen() {
+
+    if (GAME.isVolumeOn == true) {
+        const audio = new Audio("music/button-click.mp3");
+        audio.play();
+    }
+
+    const gameRecordsMainBoxDiv = document.getElementById("game-records-main-box");
+    gameRecordsMainBoxDiv.style.display = "flex";
+
+    const settingsMenuDiv = document.getElementById("settings-menu");
+    settingsMenuDiv.classList.remove("settings-menu-open");
+
+    loadRecordsMap();
+}
+
+
+function closeRecordsScreen(event) {
+    if (event.target.id == "game-records-main-box") {
+
+        if (GAME.isVolumeOn == true) {
+            const audio = new Audio("music/button-click.mp3");
+            audio.play();
+        }
+
+        const gameRecordsMainBoxDiv = document.getElementById("game-records-main-box");
+        gameRecordsMainBoxDiv.style.display = "none";
+    }
+}
+
+
+
+
+function loadRecordsMap() {
+    GAME.gameRecords = decompressCookiesFile();
+
+
+    // GAME.gameRecords = new Map();
+    // console.log(GAME.gameRecords.size);
+
+    if (GAME.gameRecords.size > 0) {
+        const gameFormatListDiv = document.getElementById("game-formats-list");
+        const gameRecordsListDiv = document.getElementById("game-records-list");
+        const gameRecordsListTitleDiv = document.getElementById("game-records-list-format-title");
+
+        gameFormatListDiv.replaceChildren();
+        gameRecordsListDiv.replaceChildren();
+        gameRecordsListTitleDiv.innerText = "Wybierz wymiar";
+
+        GAME.gameRecords.forEach((value, key) => {
+            const gameFormatBox = document.createElement("div");
+            gameFormatBox.classList.add("game-format-box");
+            gameFormatBox.addEventListener("click", (e) => { changeRecordList(e) })
+            gameFormatBox.innerText = key;
+
+
+            // const deleteFormatBoxDiv = document.createElement("div");
+            // deleteFormatBoxDiv.classList.add("delete-format-box");
+            // deleteFormatBoxDiv.addEventListener("click", (e) => { deleteRecordFormat(e) });
+
+            // gameFormatBox.appendChild(deleteFormatBoxDiv);
+
+            gameFormatListDiv.appendChild(gameFormatBox);
+        });
+    }
+}
+
+function deleteRecordFormat(e){
+    // isDeleted = true;
+    // console.log(e.path[1].innerText);
+    const gameFormat = e.path[1].innerText;
+
+    deleteCookie(gameFormat);
+    loadRecordsMap();
+
+
+    const gameRecordsListTitleDiv = document.getElementById("game-records-list-format-title");
+    gameRecordsListTitleDiv.innerText = "Wybierz wymiar";
+    // isDeleted = false;
+}
+
+
+
+
+function changeRecordList(event) {
+
+    const gameFormat = event.target.innerText;
+    const gameRecordsListTitleDiv = document.getElementById("game-records-list-format-title");
+    const gameRecordsListDiv = document.getElementById("game-records-list");
+    const gameFormatListDiv = document.getElementById("game-formats-list");
+
+
+    const formatListChildren = gameFormatListDiv.children;
+    for (let i = 0; i < formatListChildren.length; i++) {
+        formatListChildren[i].classList.remove("selected-game-format-box");
+    }
+
+    event.target.classList.add("selected-game-format-box");
+
+
+    const tempString = "Dla wymiaru: " + gameFormat.slice(0, gameFormat.lastIndexOf("x")).concat(" ") + "<span>[" + gameFormat.slice(gameFormat.lastIndexOf("x")+1) + "]</span>";
+
+    gameRecordsListTitleDiv.innerHTML = tempString;
+    gameRecordsListDiv.replaceChildren();
+
+    GAME.gameRecords.get(gameFormat).forEach(element => {
+        const gameRecordBox = document.createElement("div");
+        gameRecordBox.classList.add("game-record-box");
+        gameRecordBox.innerText = `${element[0]} ${element[1]}`;
+
+        gameRecordsListDiv.appendChild(gameRecordBox);
+    });
+}
+
+
+
+function saveGameResults() {
+
+    const nicknameInput = document.getElementById("custom-nick-input");
+    nicknameInput.value == "" ? GAME.nickname = "GOŚĆ" : GAME.nickname = nicknameInput.value;
+
+    GAME.addNewRecord();
 }

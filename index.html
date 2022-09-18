@@ -13,10 +13,26 @@
     <script src="js/functions.js" defer></script>
     <script src="js/js-classes/Box.js" defer></script>
     <script src="js/js-classes/SaperGame.js" defer></script>
+    <script src="js/js-classes/Record.js" defer></script>
     <script src="js/main.js" defer></script>
 </head>
 
 <body>
+
+    <div id="game-records-main-box">
+        <div class="game-record-mini-box">
+            <div id="game-formats-list-title">LISTA WYMIARÓW</div>
+            <div id="game-formats-list">
+                <div id="first-format-box">Nie ma jeszcze <br> rozegranych wymiarów</div>
+            </div>
+        </div>
+        <div class="game-record-mini-box">
+            <div id="game-records-list-title">TOP 10 GRACZY</div>
+            <div id="game-records-list-format-title">Dla wymiaru: 10x10 [10]</div>
+            <div id="game-records-list">
+            </div>
+        </div>
+    </div>
 
     <div id="end-of-game-main-box">
         <div id="end-of-game-box">
@@ -33,6 +49,7 @@
             </div>
             <button id="end-of-game-button-save" onclick="saveGameResults()">ZAPISZ WYNIK</button>
             <button id="end-of-game-button-start" onclick="customBoardSize()">ZAGRAJ JESZCZE RAZ</button>
+            <button id="end-of-game-button-records" onclick="openRecordsScreen()">LISTA REKORDÓW</button>
         </div>
     </div>
 
@@ -71,8 +88,8 @@
                     </div>
                 </div>
                 <div class="settings-box" id="info-settings-box">
-                    <div class="icon-box" id="icon-info-box" onclick="ruleInfo()">
-                        <i class="icon-info"></i>
+                    <div class="icon-box" id="icon-info-box" onclick="openRecordsScreen()">
+                        <i class="icon-record-list"></i>
                     </div>
                 </div>
             </div>

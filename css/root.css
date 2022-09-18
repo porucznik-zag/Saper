@@ -1,7 +1,7 @@
 :root {
     --website-bg-color: rgb(52, 65, 78);
     --main-color: rgb(82, 141, 193);
-    --main-bg-color: rgb(78, 85, 89);
+    --main-bg-color: rgb(32, 53, 65);
     --contrast-color: white;
     
     --flag-color: rgb(169, 208, 234);
@@ -13,12 +13,22 @@
     --end-title-box-bg: rgba(0, 0, 0, 0.7);
     --end-title-box-color: rgb(255, 255, 255);
     --end-title-box-button: rgb(95, 124, 146);
+
+    --game-records-bg: rgb(18, 22, 28);
+    --game-records-border-color: white;
+    --game-records-main-color: white;
+    --game-records-formats-list-title-color: rgb(43, 91, 133);
+    --game-records-list-title-bg-color: rgb(142, 90, 27);
+    --game-records-list-title-color: white;
+    --game-records-box-bg-color: rgb(209, 144, 65);
+    --game-records-box-color: white;
+
 }
 
 /* :root {
-    --website-bg-color: whitesmoke;
-    --main-color: rgb(82, 141, 193);
-    --main-bg-color: rgb(52, 62, 68);
+    --website-bg-color: rgb(240, 251, 255);
+    --main-color: rgb(141, 195, 242);
+    --main-bg-color: rgb(32, 53, 65);
     --contrast-color: white;
     
     --flag-color: rgb(60, 71, 91);
@@ -26,4 +36,13 @@
     --box-first-layer-color-hover: rgb(105, 163, 214);
     --box-second-layer-color: rgb(103, 116, 126);
     --box-bomb-color: rgb(197, 88, 88);
+
+    --game-records-bg: rgb(240, 251, 255);
+    --game-records-border-color: rgb(16, 44, 85);
+    --game-records-main-color: rgb(255, 255, 255);
+    --game-records-formats-list-title-color: rgb(76, 157, 224);
+    --game-records-list-title-bg-color: rgb(216, 144, 55);
+    --game-records-list-title-color: rgb(88, 59, 23);
+    --game-records-box-bg-color: rgb(242, 210, 122);
+    --game-records-box-color: rgb(129, 104, 33);
 } */
