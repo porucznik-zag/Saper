@@ -309,12 +309,12 @@ class SaperGame {
 
                 console.log(tempBomobArray);
 
-                // if (tempBomobArray.length == 1) {
-                //     setTimeout(() => {
-                //         updateButtonDiv.disabled = false;
-                //         defatGame();
-                //     }, 1000)
-                // }
+                if (tempBomobArray.length == 1) {
+                    setTimeout(() => {
+                        updateButtonDiv.disabled = false;
+                        defatGame();
+                    }, 2000)
+                }
 
                 // for (let i = 0; i < tempBomobArray.length - 1; i++) {
 
