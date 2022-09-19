@@ -14,29 +14,22 @@ function customBoardSize() {
     const boardHeightInput = document.getElementById("custom-height-input");
     const boardMinesInput = document.getElementById("custom-mines-input");
 
-    if (GAME.boardWidth <= 1 && GAME.boardWidth <= 50) {
-        GAME.boardWidth = 10;
-        GAME.boardHeight = 10;
-        GAME.boardMines = 10;
-        GAME.flagsToSet = 10;
-        GAME.gameFormat = "10x10x10";
-        boardWidthInput.value = "";
-        boardHeightInput.value = "";
-        boardMinesInput.value = "";
-        setTimeout(() => { alert("Podano niepoprawną szerokość!\nPoprawny zakres: 1 - 50\nDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]"); }, 500);
+    let isIncorrectValue = false;
+
+    if (GAME.boardWidth <= 1 || GAME.boardWidth > 60) {
+        isIncorrectValue = true;
+        setTimeout(() => { alert("Podano niepoprawną szerokość!\nPoprawny zakres: 1 - 60\nDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]"); }, 500);
     }
-    else if (GAME.boardHeight <= 1 && GAME.boardHeight <= 50) {
-        GAME.boardWidth = 10;
-        GAME.boardHeight = 10;
-        GAME.boardMines = 10;
-        GAME.flagsToSet = 10;
-        GAME.gameFormat = "10x10x10";
-        boardWidthInput.value = "";
-        boardHeightInput.value = "";
-        boardMinesInput.value = "";
-        setTimeout(() => { alert("Podano niepoprawną wysokość!\nPoprawny zakres: 1 - 50\nDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]"); }, 500);
+    else if (GAME.boardHeight <= 1 || GAME.boardHeight > 60) {
+        isIncorrectValue = true;
+        setTimeout(() => { alert("Podano niepoprawną wysokość!\nPoprawny zakres: 1 - 60\nDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]"); }, 500);
     }
     else if (GAME.boardMines <= 0 || GAME.boardArray >= GAME.boardWidth * GAME.boardHeight) {
+        isIncorrectValue = true;
+        setTimeout(() => { alert("Podano niepoprawną liczbę min!\nPoprawny zakres: +1\nnDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]"); }, 500);
+    }
+
+    if(isIncorrectValue == true){
         GAME.boardWidth = 10;
         GAME.boardHeight = 10;
         GAME.boardMines = 10;
@@ -45,7 +38,6 @@ function customBoardSize() {
         boardWidthInput.value = "";
         boardHeightInput.value = "";
         boardMinesInput.value = "";
-        setTimeout(() => { alert("Podano niepoprawną liczbę min!\nDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]"); }, 500);
     }
 
     GAME.createBoardArray();
@@ -94,6 +86,13 @@ function scaleBoxSize() {
         element.style.width = (boardWidth - boardGap * (GAME.boardWidth - 1)) / GAME.boardWidth + "px";
         element.style.height = (boardWidth - boardGap * (GAME.boardWidth - 1)) / GAME.boardWidth + "px";
         element.lastChild.style.fontSize = boardWidth / (GAME.boardWidth * 2.5) + "px";
+
+        // const boxID = parseInt(element.id.slice(4));
+        // // const x = (boxID + 1) % GAME.boardWidth == 0 ? Math.floor((boxID + 1) / GAME.boardWidth) - 1 : Math.floor((boxID + 1) / GAME.boardWidth);
+        // const y = (boxID + 1) % GAME.boardWidth == 0 ? GAME.boardWidth - 1 : ((boxID + 1) % GAME.boardWidth) - 1;
+        // if(y == 0){
+        //     element.style.marginLeft = "0px";
+        // }
     });
 
     // const boxes = document.querySelectorAll(".box");
@@ -462,7 +461,8 @@ function changeRecordList(event) {
     GAME.gameRecords.get(gameFormat).forEach(element => {
         const gameRecordBox = document.createElement("div");
         gameRecordBox.classList.add("game-record-box");
-        gameRecordBox.innerText = `${element[0]} ${element[1]}`;
+        const stringTime = Math.floor((element[1] / 1000) / 60) + ":" + Math.floor(element[1] / 1000) + ":" + element[1]%1000;
+        gameRecordBox.innerText = `${element[0]} ${stringTime}`;
 
         gameRecordsListDiv.appendChild(gameRecordBox);
     });

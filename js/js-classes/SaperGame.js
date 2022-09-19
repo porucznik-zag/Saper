@@ -309,56 +309,74 @@ class SaperGame {
 
                 console.log(tempBomobArray);
 
-                if (tempBomobArray.length == 1) {
-                    setTimeout(() => {
-                        updateButtonDiv.disabled = false;
-                        defatGame();
-                    }, 1000)
-                }
+                // if (tempBomobArray.length == 1) {
+                //     setTimeout(() => {
+                //         updateButtonDiv.disabled = false;
+                //         defatGame();
+                //     }, 1000)
+                // }
 
-                for (let i = 0; i < tempBomobArray.length - 1; i++) {
+                // for (let i = 0; i < tempBomobArray.length - 1; i++) {
 
-                    const timeToCall = 200 + (300 - (50 / this.boardMines) * (i + 1)) * (i + 1);
-                    // const timeToCall = Math.floor((Math.random() * 1500) + 300);
-                    // const timeToCall = 200 + (i+1)*200;
+                //     const timeToCall = 200 + (300 - (50 / this.boardMines) * (i + 1)) * (i + 1);
+                //     // const timeToCall = Math.floor((Math.random() * 1500) + 300);
+                //     // const timeToCall = 200 + (i+1)*200;
 
-                    console.log(`[${i}] = ${timeToCall}`);
+                //     console.log(`[${i}] = ${timeToCall}`);
 
-                    const showBomb = setTimeout(() => {
+                //     const showBomb = setTimeout(() => {
 
-                        let randomNumber = 0;
-                        while (true) {
-                            randomNumber = Math.floor(Math.random() * tempBomobArray.length);
-                            if (tempBomobArray[randomNumber].isVisible == false)
-                                break;
-                        }
+                //         let randomNumber = 0;
+                //         while (true) {
+                //             randomNumber = Math.floor(Math.random() * tempBomobArray.length);
+                //             if (tempBomobArray[randomNumber].isVisible == false)
+                //                 break;
+                //         }
 
-                        tempBomobArray[randomNumber].isVisible = true;
+                //         tempBomobArray[randomNumber].isVisible = true;
 
-                        const bombId = "box-" + tempBomobArray[randomNumber].id;
-                        const tempDiv = document.getElementById(bombId);
+                //         const bombId = "box-" + tempBomobArray[randomNumber].id;
+                //         const tempDiv = document.getElementById(bombId);
 
-                        tempDiv.childNodes[0].style.display = "none";
-                        if (this.isVolumeOn == true) {
-                            if (i == tempBomobArray.length - 2) {
-                                const audio = new Audio("music/bomb-1-last.mp3");
-                                audio.play();
-                            }
-                            else {
-                                const audio = new Audio("music/bomb-1-last.mp3");
-                                audio.volume = 0.6;
-                                audio.play();
-                            }
-                        }
+                //         tempDiv.childNodes[0].style.display = "none";
+                //         if (this.isVolumeOn == true) {
+                //             if (i == tempBomobArray.length - 2) {
+                //                 const audio = new Audio("music/bomb-1-last.mp3");
+                //                 audio.play();
+                //             }
+                //             else {
+                //                 const audio = new Audio("music/bomb-1-last.mp3");
+                //                 audio.volume = 0.6;
+                //                 audio.play();
+                //             }
+                //         }
 
-                        if (i == tempBomobArray.length - 2) {
-                            setTimeout(() => {
-                                updateButtonDiv.disabled = false;
-                                defatGame();
-                            }, 1000)
-                        }
+                //         if (i == tempBomobArray.length - 2) {
+                //             setTimeout(() => {
+                //                 updateButtonDiv.disabled = false;
+                //                 defatGame();
+                //             }, 1000)
+                //         }
 
-                    }, timeToCall);
+                //     }, timeToCall);
+                // }
+
+                console.log(tempBomobArray);
+
+                for (let i = 0; i < tempBomobArray.length;i++) {
+                    tempBomobArray[i].isVisible = true;
+
+                    const bombId = "box-" + tempBomobArray[i].id;
+                    const tempDiv = document.getElementById(bombId);
+
+                    tempDiv.childNodes[0].style.display = "none";
+
+                    if (i == tempBomobArray.length - 2) {
+                        setTimeout(() => {
+                            updateButtonDiv.disabled = false;
+                            defatGame();
+                        }, 2000)
+                    }
                 }
             }
 
@@ -566,18 +584,18 @@ class SaperGame {
             const pushArray = new Array();
             pushArray.push(this.nickname);
             pushArray.push(this.gameTime.toString());
-            
+
             let isSameExsist = false;
-            for(let i=0; i<this.gameRecords.get(this.gameFormat).length; i++){
-                if(this.gameRecords.get(this.gameFormat)[i][0] == pushArray[0]){
-                    if(this.gameRecords.get(this.gameFormat)[i][1] == pushArray[1]){
+            for (let i = 0; i < this.gameRecords.get(this.gameFormat).length; i++) {
+                if (this.gameRecords.get(this.gameFormat)[i][0] == pushArray[0]) {
+                    if (this.gameRecords.get(this.gameFormat)[i][1] == pushArray[1]) {
                         isSameExsist = true;
                         break;
                     }
                 }
             }
 
-            if(isSameExsist == false)
+            if (isSameExsist == false)
                 this.gameRecords.get(this.gameFormat).push(pushArray);
 
 
@@ -585,7 +603,7 @@ class SaperGame {
 
 
 
-            if(this.gameRecords.get(this.gameFormat).length > 10){
+            if (this.gameRecords.get(this.gameFormat).length > 10) {
                 this.gameRecords.get(this.gameFormat).pop();
             }
 
@@ -595,7 +613,7 @@ class SaperGame {
             const pushArray = new Array();
             pushArray.push(this.nickname);
             pushArray.push(this.gameTime.toString());
-            this.gameRecords.set(this.gameFormat,mainArray);
+            this.gameRecords.set(this.gameFormat, mainArray);
             this.gameRecords.get(this.gameFormat).push(pushArray);
         }
 
