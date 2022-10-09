@@ -514,6 +514,39 @@ class SaperGame {
 
 
         if (event.which == 3) {
+
+            // wystartowanie timer'a
+            if (this.isTimerStarted == false) {
+
+                this.timeOfStart = new Date().getTime();
+
+                console.log(this.timeOfStart);
+
+                this.isTimerStarted = true;
+                document.getElementById("stop-button").disabled = false;
+
+
+                this.updateTimer = setInterval(() => {
+                    const gameTimerDiv = document.getElementById("game-timer");
+                    GAME.gameSecunds = GAME.gameSecunds + 1;
+                    if (GAME.gameSecunds == 60) {
+                        GAME.gameSecunds = 0;
+                        GAME.gameMinutes = GAME.gameMinutes + 1;
+                    }
+
+                    let gameSecundsString = GAME.gameSecunds;
+                    let gameMinutesString = GAME.gameMinutes;
+
+                    if (gameSecundsString < 10)
+                        gameSecundsString = "0" + gameSecundsString;
+
+                    if (gameMinutesString < 10)
+                        gameMinutesString = "0" + gameMinutesString;
+
+                    gameTimerDiv.innerText = gameMinutesString + ":" + gameSecundsString;
+                }, 1000);
+            }
+
             if (this.boardArray[x][y].isFlaged == false) {
 
                 if (this.flagsToSet == 0) {

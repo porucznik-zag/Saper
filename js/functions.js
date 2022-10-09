@@ -16,17 +16,17 @@ function customBoardSize() {
 
     let isIncorrectValue = false;
 
-    if (GAME.boardWidth <= 1 || GAME.boardWidth > 60) {
+    if (GAME.boardWidth < 2 || GAME.boardWidth > 60) {
         isIncorrectValue = true;
         setTimeout(() => { alert("Podano niepoprawną szerokość!\nPoprawny zakres: 1 - 60\nDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]"); }, 500);
     }
-    else if (GAME.boardHeight <= 1 || GAME.boardHeight > 60) {
+    else if (GAME.boardHeight < 2 || GAME.boardHeight > 60) {
         isIncorrectValue = true;
         setTimeout(() => { alert("Podano niepoprawną wysokość!\nPoprawny zakres: 1 - 60\nDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]"); }, 500);
     }
-    else if (GAME.boardMines <= 0 || GAME.boardArray >= GAME.boardWidth * GAME.boardHeight) {
+    else if (GAME.boardMines <= 0 || GAME.boardMines >= GAME.boardWidth * GAME.boardHeight) {
         isIncorrectValue = true;
-        setTimeout(() => { alert("Podano niepoprawną liczbę min!\nPoprawny zakres: +1\nnDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]"); }, 500);
+        setTimeout(() => { alert("Podano niepoprawną liczbę min!\nPoprawny zakres: (1) - (width*heigth-1)\nDlatego ustawiono wartości domyślne.\nFORMAT GRY: 10x10 [10]"); }, 500);
     }
 
     if(isIncorrectValue == true){
@@ -71,56 +71,14 @@ function scaleBoxSize() {
     boardContainer.style.gap = boardGap + "px";
 
     const boardWidth = parseFloat(boardContainer.clientWidth);
-
-    boardContainer.style.width = 431;
-
-
     const boxWidth = document.getElementById("box-0").clientWidth;
-
-
-
     boardContainer.style.height = ((boardWidth - (boardGap * (GAME.boardWidth - 1))) / GAME.boardWidth) * GAME.boardHeight + boardGap * (GAME.boardHeight - 1) + "px";
-
 
     boxes.forEach(element => {
         element.style.width = (boardWidth - boardGap * (GAME.boardWidth - 1)) / GAME.boardWidth + "px";
         element.style.height = (boardWidth - boardGap * (GAME.boardWidth - 1)) / GAME.boardWidth + "px";
         element.lastChild.style.fontSize = boardWidth / (GAME.boardWidth * 2.5) + "px";
-
-        // const boxID = parseInt(element.id.slice(4));
-        // // const x = (boxID + 1) % GAME.boardWidth == 0 ? Math.floor((boxID + 1) / GAME.boardWidth) - 1 : Math.floor((boxID + 1) / GAME.boardWidth);
-        // const y = (boxID + 1) % GAME.boardWidth == 0 ? GAME.boardWidth - 1 : ((boxID + 1) % GAME.boardWidth) - 1;
-        // if(y == 0){
-        //     element.style.marginLeft = "0px";
-        // }
     });
-
-    // const boxes = document.querySelectorAll(".box");
-    // const boardContainer = document.getElementById("board-container");
-
-    // // const boardGap = 2;
-    // // boardContainer.style.gap = boardGap + "px";
-
-    // const boardWidth = window.innerWidth * (widthPercent/100);
-    // const boxWidth = boardWidth / GAME.boardWidth;
-
-    // // console.log(boardWidth + " " + boxWidth);
-
-
-    // boxes.forEach(element => {
-    //     element.style.width = boxWidth + "px";
-    //     element.style.height = boxWidth + "px";
-    //     element.lastChild.style.fontSize = boardWidth / (GAME.boardWidth * 2.5) + "px";
-    // });
-
-    // boardContainer.style.height = (boxWidth * GAME.boardHeight) + "px";
-    // boardContainer.style.width = (boxWidth * GAME.boardWidth) + "px";
-    // // boardContainer.style.width = boardWidth;
-
-
-
-
-
 
     const startFormBoxDiv = document.getElementById("start-from-box");
     const flagsToSetDiv = document.getElementById("flags-to-set-div");
@@ -152,7 +110,6 @@ function changeBoardWidth(percentValue) {
 
     percentValueDiv.innerText = percentValue;
     boardContainer.style.width = percentValue + "%";
-    // widthPercent = percentValue;
 }
 
 
@@ -439,6 +396,11 @@ function deleteRecordFormat(e){
 
 function changeRecordList(event) {
 
+    if (GAME.isVolumeOn == true) {
+        const audio = new Audio("music/button-click.mp3");
+        audio.play();
+    }
+
     const gameFormat = event.target.innerText;
     const gameRecordsListTitleDiv = document.getElementById("game-records-list-format-title");
     const gameRecordsListDiv = document.getElementById("game-records-list");
@@ -461,7 +423,17 @@ function changeRecordList(event) {
     GAME.gameRecords.get(gameFormat).forEach(element => {
         const gameRecordBox = document.createElement("div");
         gameRecordBox.classList.add("game-record-box");
-        const stringTime = Math.floor((element[1] / 1000) / 60) + ":" + Math.floor(element[1] / 1000) + ":" + element[1]%1000;
+        let stringTime = "";
+        if (Math.floor((element[1] / 1000) / 60) < 10)
+            stringTime += "0" + Math.floor((element[1] / 1000) / 60) + ":";
+        else
+            stringTime += Math.floor((element[1] / 1000) / 60) + ":";
+        if(Math.floor(element[1] / 1000)%60 < 10)
+            stringTime += "0" + Math.floor(element[1] / 1000)%60 + ":";
+        else
+            stringTime += Math.floor(element[1] / 1000)%60 + ":"
+        stringTime += element[1]%1000;
+        // const stringTime = Math.floor((element[1] / 1000) / 60) + ":" + Math.floor(element[1] / 1000)%60 + ":" + element[1]%1000;
         gameRecordBox.innerText = `${element[0]} ${stringTime}`;
 
         gameRecordsListDiv.appendChild(gameRecordBox);
@@ -476,4 +448,103 @@ function saveGameResults() {
     nicknameInput.value == "" ? GAME.nickname = "GOŚĆ" : GAME.nickname = nicknameInput.value;
 
     GAME.addNewRecord();
+}
+
+
+
+/* ----------------------COOKIE FUNCTIONS------------------------- */
+
+function setCookie(cookieName, cookieValue, exDays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exDays * 24 * 60 * 60 * 1000));
+    const expires = "expires=" + d.toUTCString();
+    document.cookie = cookieName + "=" + cookieValue + ";" + expires + ";path=/";
+}
+
+function getCookie(cookieName) {
+    const name = cookieName + "=";
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const cookieArray = decodedCookie.split(';');
+    for (let i = 0; i < cookieArray.length; i++) {
+        let c = cookieArray[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0)
+            return c.substring(name.length, c.length);
+    }
+    return "";
+}
+
+function deleteCookie(cookieName) {
+    document.cookie = cookieName + "=; expires=01 Jan 1970 00:00:00 GMT;path=/";
+}
+
+function deleteAllCookies() {
+
+    if(document.cookie == ""){
+        console.log("nie ma cookiesów");
+        return;
+    }
+
+    const cookies = document.cookie.split(";");
+
+    for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i];
+        const eqPos = cookie.indexOf("=");
+        const name = eqPos > -1 ? cookie.substring(0, eqPos) : cookie;
+        document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT";
+    }
+}
+
+function decompressCookiesFile(){
+
+    const records = new Map();
+
+
+    if(document.cookie == ""){
+        console.log("nie ma cookiesów");
+        return records;
+    }
+
+    const cookieArray = document.cookie.split(";");
+
+    for (let i = 0; i < cookieArray.length; i++) {
+        while (cookieArray[i].charAt(0) == ' ') {
+            cookieArray[i] = cookieArray[i].substring(1);
+        }
+    }
+
+
+    for(let i=0; i<cookieArray.length; i++){
+        const gameFormat = cookieArray[i].substring(0,cookieArray[i].indexOf("="));
+
+        const recordsArray = [];
+
+        cookieArray[i] = cookieArray[i].replace((gameFormat+"="),"");
+
+        const cookieElementsArray = cookieArray[i].split("?");
+
+        for(let j=0; j<cookieElementsArray.length; j++){
+            const cookieElementsOfElementsArray = cookieElementsArray[j].split("~");
+            recordsArray.push(cookieElementsOfElementsArray);
+        }
+
+        records.set(gameFormat,recordsArray);
+    }
+
+    return records;
+}
+
+function compressCookieFile(recordsArray){
+    recordsArray.forEach((value, key) => {
+        const cookieName = key;
+        let cookieString = "";
+        for(let i=0; i< value.length; i++){
+            cookieString += value[i][0] + "~" + value[i][1];
+            if(i < value.length-1)
+                cookieString += "?";
+        }
+        setCookie(cookieName, cookieString, 10);
+    });
 }

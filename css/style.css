@@ -1,21 +1,21 @@
-@font-face {
+/* @font-face {
     font-family: 'NowMedium';
     src: URL('../fonts/Now-Medium.otf') format('opentype');
-}
+} */
 
-@font-face {
+/* @font-face {
     font-family: 'AllSeason';
     src: URL('../fonts/All-Season.otf') format('opentype');
-}
+} */
+
+/* @font-face {
+    font-family: 'ComicBook';
+    src: URL('../fonts/Comic_Book.ttf') format('truetype');
+} */
 
 @font-face {
     font-family: 'Euqlid';
     src: URL('../fonts/Euclid-Circular.ttf') format('truetype');
-}
-
-@font-face {
-    font-family: 'ComicBook';
-    src: URL('../fonts/Comic_Book.ttf') format('truetype');
 }
 
 
@@ -345,7 +345,6 @@ input::-webkit-inner-spin-button {
 .box {
     position: relative;
     width: 100%;
-    width: 100%;
     height: 40px;
     display: flex;
     align-items: center;
@@ -647,24 +646,11 @@ input::-webkit-inner-spin-button {
     align-items: center;
     justify-content: center;
     background-color: var(--box-bomb-color);
-    transition: 0.8s ease-out;
-    /* opacity: 0.5; */
 }
 
 .delete-format-box:hover{
     cursor: pointer;
-    /* border: 2px solid var(--game-records-border-color); */
-    /* transform: scale(1.05); */
-    /* opacity: 1; */
-    background-color: rgb(211, 43, 43);
-}
-
-.delete-format-box:hover{
-    cursor: pointer;
-    /* border: 2px solid var(--game-records-border-color); */
-    /* transform: scale(1.05); */
-    /* opacity: 1; */
-    background-color: rgb(211, 43, 43);
+    border: 2px solid var(--game-records-border-color);
 }
 
 .game-format-box span{
